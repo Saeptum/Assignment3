@@ -133,15 +133,60 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-
-    public void AddProfileListener() throws Exception {
-        showAddProfile();
+    private ProfileAdapter profileAdapter;
+    public void AddProfileListener() {
+        try {
+            // Create new profileAdapter
+            profileAdapter = new ProfileAdapter(conn, false);
+            // Instantiate an RemoveFlightController object, use setter for profileAdapter
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddProfile.fxml"));
+            // Load FXMLloader so there's no nullpointer exceptions
+            Parent addProfile = (Parent) fxmlLoader.load();
+            AddProfileController addProfileController = (AddProfileController ) fxmlLoader.getController();
+            addProfileController.setProfileAdapter(profileAdapter);
+            show(addProfile, "Add Profile");
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+    @FXML
+    public void ChangeProfileListener() {
+        try {
+            // Create new profileAdapter
+            profileAdapter = new ProfileAdapter(conn, false);
+            // Instantiate an RemoveFlightController object, use setter for profileAdapter
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChangeProfiles.fxml"));
+            // Load FXMLloader so there's no nullpointer exceptions
+            Parent changeProfile = (Parent) fxmlLoader.load();
+            ChangeProfiles changeProfileController = (ChangeProfiles) fxmlLoader.getController();
+            changeProfileController.setProfileAdapter(profileAdapter);
+            show(changeProfile, "Change Profile");
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+    @FXML
+    public void RemoveProfileListener() {
+        try {
+            // Create new profileAdapter
+            profileAdapter = new ProfileAdapter(conn, false);
+            // Instantiate a RemoveProfileController object, use setter for profileAdapter
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/iTravel/RemoveProfile.fxml"));
+            // Load FXMLloader so there's no nullpointer exceptions
+            Parent removeProfile = (Parent) fxmlLoader.load();
+            RemoveProfile removeProfileController = (RemoveProfile) fxmlLoader.getController();
+            removeProfileController.setProfileAdapter(profileAdapter);
+            show(removeProfile, "Remove Profile");
+        } catch (Exception ex) {
+            System.out.print(ex);
+        }
     }
     @FXML
     public void resetDB() {
         try {
-            // create flightsAdapter model
+            // Create new DB models
             flightsAdapter = new FlightsAdapter(conn, true);
+            profileAdapter = new ProfileAdapter(conn, true);
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }

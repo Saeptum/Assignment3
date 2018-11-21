@@ -76,6 +76,25 @@ public class ProfileAdapter {
             System.out.print(ex.getMessage());
         }
     }
+    public void removeProfile(Profile profile) {
+        try {
+            Statement stmt = conn.createStatement();
+            // Query and delete
+            String sql = "DELETE FROM Profile WHERE FirstName=? AND LastName=? AND Address=?";
+
+            // Use prepared statements for dynamic sql strings
+            PreparedStatement ps = conn.prepareStatement(sql);
+            // Replace ? with FlightNumber
+            ps.setString(1, profile.getFirstName());
+            ps.setString(2, profile.getLastName());
+            ps.setString(3, profile.getAddress());
+            // Then execute the update
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+
     public ObservableList<Profile> getProfilesList() throws SQLException {
         ObservableList<Profile> profilesList = FXCollections.observableArrayList();
         Statement stmt = conn.createStatement();

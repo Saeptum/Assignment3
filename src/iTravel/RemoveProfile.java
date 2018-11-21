@@ -19,9 +19,11 @@ public class RemoveProfile implements Initializable {
     private Button remove;
     final ObservableList<String> comboBoxData = FXCollections.observableArrayList();
     @FXML
-    public void removeProfile() {
+    public void removeProfile() throws SQLException {
         if (comboBox.getValue() != null) {
-            profileAdapter.removeProfile(comboBox.getValue());
+            // Access profiles.getList() at index of combobox
+            // Remove profile by certain profile info
+            profileAdapter.removeProfile(profileAdapter.getProfilesList().get(comboBox.getSelectionModel().getSelectedIndex()));
         } else {
             System.out.println("warning, combobox has not been selected");
         }

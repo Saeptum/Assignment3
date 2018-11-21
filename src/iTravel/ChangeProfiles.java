@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -38,6 +39,8 @@ public class ChangeProfiles {
     private ComboBox<String> comboBox;
     @FXML
     private Button okay;
+    @FXML
+    private Label label;
     private ProfileAdapter profileAdapter;
     private ObservableList<String> comboBoxData = FXCollections.observableArrayList();
 
@@ -61,6 +64,7 @@ public class ChangeProfiles {
         int comboBoxSelectedIndex = comboBox.getSelectionModel().getSelectedIndex();
         Parent addProfile;
         try {
+            // Set up addProfileController and display it onscreen
             addProfile = (Parent) fxmlLoader.load();
             AddProfileController addProfileController = (AddProfileController) fxmlLoader.getController();
             addProfileController.setProfileAdapter(profileAdapter);
@@ -71,18 +75,27 @@ public class ChangeProfiles {
             stage.setTitle("Change Profiles");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
+
             // Set textfields
             Profile profile = profileAdapter.getProfilesList().get(comboBoxSelectedIndex);
             addProfileController.setFirstName(profile.getFirstName());
             addProfileController.setLastName(profile.getLastName());
             addProfileController.setAddress(profile.getAddress());
+
             // Fire radio button at profile.getPosition()
             RadioButton businessManager = addProfileController.getBusinessManager();
             RadioButton lineOfBusinessExecutive = addProfileController.getLineOfBusinessExecutive();
             RadioButton networkAdministrator = addProfileController.getNetworkAdministrator();
             RadioButton radioButtons[] = {businessManager, lineOfBusinessExecutive, networkAdministrator};
             radioButtons[profile.getPosition()].fire();
-            profileAdapter.removeProfile(profile.getFirstName());
+
+            // Remove previous profile
+            profileAdapter.removeProfile(profile);
+
+            // Disable form
+            comboBox.setDisable(true);
+            okay.setDisable(true);
+            label.setText("Please exit this form");
         } catch (Exception ex) {
             addProfile = null;
             System.out.println(ex.getMessage());

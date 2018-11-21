@@ -21,7 +21,7 @@
                 <Menu mnemonicParsing="false" text="Flights">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#flightListener" text="Add Flight" />
-                  <MenuItem mnemonicParsing="false" onAction="#RemoveFlightListener" text="Remove Flight" />
+                  <MenuItem mnemonicParsing="false" onAction="#removeFlightListener" text="Remove Flight" />
                   <MenuItem mnemonicParsing="false" text="Analyze Flights Performance" />
                   <MenuItem mnemonicParsing="false" text="Manage Frequent Flier" />
                     </items></Menu>

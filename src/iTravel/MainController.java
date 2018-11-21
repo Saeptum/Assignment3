@@ -52,18 +52,6 @@ public class MainController implements Initializable {
         stage.close();
     }
 
-    public void showAddFlight(Parent parent) throws IOException {
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-
-        stage.setScene(scene);
-        stage.getIcons().add(new Image("file:src/TennisBallGames/WesternLogo.png"));
-        stage.setTitle("Add Flight");
-        stage.initModality(Modality.APPLICATION_MODAL);
-
-        stage.show();
-    }
-
     private FlightsAdapter flightsAdapter;
     public void flightListener() {
         /*// Toggle the comments below after you finish the requirement of Task #3
@@ -90,45 +78,59 @@ public class MainController implements Initializable {
             // Create new flightsAdapter
             flightsAdapter = new FlightsAdapter(conn, false);
             // Instantiate an AddFlightController object, set its private flightsAdapter to this controller's flightsAdapter
-            // THIS IS NULL RIGHT NOW
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddFlight.fxml"));
             // Load FXMLloader so there's no nullpointer exceptions
             Parent addFlight = (Parent) fxmlLoader.load();
             AddFlightController addFlightController = (AddFlightController) fxmlLoader.getController();
             addFlightController.setFlightsAdapter(flightsAdapter);
-            showAddFlight(addFlight);
-        } catch (IOException | SQLException ex) {
+            show(addFlight, "Add Flight");
+        } catch (Exception ex) {
             System.out.print(ex.getMessage());
         }
     }
 
     public void RemovingFlight(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("RemoveFlight.fxml"));
-        primaryStage.setTitle("Removing FLight");
-        primaryStage.setScene(new Scene(root, 480, 400));
-        primaryStage.show();
+
     }
 
-    public void showRemoveFlight() throws Exception {
+    public void showRemoveFlight(Parent parent) throws Exception {
+        Scene scene = new Scene(parent);
         Stage stage = new Stage();
-        RemovingFlight(stage);
+
+        stage.setScene(scene);
+        stage.getIcons().add(new Image("file:src/TennisBallGames/WesternLogo.png"));
+        stage.setTitle("Remove Flight");
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        stage.show();
     }
 
-
-    public void RemoveFlightListener() throws Exception {
-        showRemoveFlight();
+    public void removeFlightListener() throws Exception {
+        try {
+            // Create new flightsAdapter
+            flightsAdapter = new FlightsAdapter(conn, false);
+            // Instantiate an RemoveFlightController object, set its private flightsAdapter to this controller's flightsAdapter
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RemoveFlight.fxml"));
+            // Load FXMLloader so there's no nullpointer exceptions
+            Parent removeFlight = (Parent) fxmlLoader.load();
+            RemoveFlightController removeFlightController = (RemoveFlightController) fxmlLoader.getController();
+            removeFlightController.setFlightsAdapter(flightsAdapter);
+            show(removeFlight, "Remove Flight");
+        } catch (IOException | SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
     }
 
-    public void AddProfile(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("AddProfile.fxml"));
-        primaryStage.setTitle("Add Profile");
-        primaryStage.setScene(new Scene(root, 480, 400));
-        primaryStage.show();
-    }
-
-    public void showAddProfile() throws Exception {
+    public void show(Parent parent, String title) throws Exception {
+        Scene scene = new Scene(parent);
         Stage stage = new Stage();
-        AddProfile(stage);
+
+        stage.setScene(scene);
+        stage.getIcons().add(new Image("file:src/TennisBallGames/WesternLogo.png"));
+        stage.setTitle(title);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        stage.show();
     }
 
 

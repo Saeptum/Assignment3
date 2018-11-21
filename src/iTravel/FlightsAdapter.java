@@ -1,9 +1,7 @@
 package iTravel;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -49,7 +47,42 @@ public class FlightsAdapter {
             System.out.print(ex.getMessage());
         }
     }
+    // Get all Flight Numbers
+    public ObservableList<Integer> getFlightNumbers() throws SQLException {
+        ObservableList<Integer> list = FXCollections.observableArrayList();
+        ResultSet rs;
 
+        // Create a Statement object
+        Statement stmt = connection.createStatement();
+
+        // Create a string with a SELECT statement
+        String sqlStatement = "SELECT * FROM Flights";
+
+        // Store all flightdata into a resultset
+        rs = stmt.executeQuery(sqlStatement);
+
+        // loop for all the rs rows and add flightNumber to list
+        while (rs.next()) {
+            list.add(rs.getInt("FlightNumber"));
+        }
+        return list;
+    }
+    public void removeFlight(int flightNumber) {
+        try {
+            Statement stmt = connection.createStatement();
+            // Query and delete
+            String sql = "DELETE FROM Flights WHERE FlightNumber=?";
+
+            // Use prepared statements for dynamic sql strings
+            PreparedStatement ps = connection.prepareStatement(sql);
+            // Replace ? with FlightNumber
+            ps.setInt(1, flightNumber);
+            // Then execute the update
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
 
 
 }

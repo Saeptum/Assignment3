@@ -47,7 +47,7 @@ public class AddFlightController implements Initializable {
     @FXML
     private TextField destination;
     @FXML
-    private Button add;
+    private Button add = new Button("add");
     private Flights flight;
     private FlightsAdapter flightsAdapter;
     private Connection connection;
@@ -70,6 +70,7 @@ public class AddFlightController implements Initializable {
     public void addFlight() {
         flight = new Flights(pInt(flightNumber), pInt(businessSeatCapacity), pInt(businessFare), date.getText(), pInt(timeOfDeparture), origin.getText(), pInt(executiveSeatCapacity), pInt(executiveFare), pInt(timeOfArrival), destination.getText());
         flightsAdapter.addFlight(flight);
-
+        Stage stage = (Stage) add.getScene().getWindow();
+        stage.close();
     }
 }

@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Nov 21 15:36:08 EST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0167-37fc-b60d-000003397ea8 
+Thu Nov 22 01:38:40 EST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0167-3a24-5782-0000035f3148 
 on database directory /Users/haydenhoffman/ass3/whatever2/TeamDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4459eb14 
 Loaded from file:/Users/haydenhoffman/Downloads/derby.jar
 java.vendor=Oracle Corporation

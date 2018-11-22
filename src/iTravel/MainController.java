@@ -165,6 +165,46 @@ public class MainController implements Initializable {
             System.out.print(ex.getMessage());
         }
     }
+    private AccountAdapter accountAdapter;
+    @FXML public void AddAccountListener() {
+        // Show add account form
+        try {
+            accountAdapter = new AccountAdapter(conn, false);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateNewAccount.fxml"));
+            Parent addAccount = (Parent) fxmlLoader.load();
+            CreateNewAccount createNewAccount = (CreateNewAccount) fxmlLoader.getController();
+            createNewAccount.setAccountAdapter(accountAdapter);
+            show(addAccount, "Add Account");
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+    @FXML public void ChangeAccountListener() {
+        // Show change account form
+        try {
+            accountAdapter = new AccountAdapter(conn, false);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChangeAccount.fxml"));
+            Parent chgAccount = (Parent) fxmlLoader.load();
+            ChangeAccount changeAccount = (ChangeAccount) fxmlLoader.getController();
+            changeAccount.setAccountAdapter(accountAdapter);
+            show(chgAccount, "Change Account");
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+    @FXML public void RemoveAccountListener() {
+        // Show remove account form
+        try {
+            accountAdapter = new AccountAdapter(conn, false);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RemoveAccount.fxml"));
+            Parent rmvAccount = (Parent) fxmlLoader.load();
+            RemoveAccount removeAccount = (RemoveAccount) fxmlLoader.getController();
+            removeAccount.setAccountAdapter(accountAdapter);
+            show(rmvAccount, "Remove Account");
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
     @FXML
     public void RemoveProfileListener() {
         try {
@@ -187,6 +227,7 @@ public class MainController implements Initializable {
             // Create new DB models
             flightsAdapter = new FlightsAdapter(conn, true);
             profileAdapter = new ProfileAdapter(conn, true);
+            accountAdapter = new AccountAdapter(conn, true);
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }

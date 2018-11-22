@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iTravel.ChangeAccount">
+   <children>
+      <ComboBox fx:id="comboBox" layoutX="300.0" layoutY="187.0" prefWidth="150.0" />
+      <Label layoutX="144.0" layoutY="192.0" text="Profiles:" />
+      <Button fx:id="okay" layoutX="519.0" layoutY="351.0" mnemonicParsing="false" onAction="#onOkay" text="OK" />
+   </children>
+</AnchorPane>

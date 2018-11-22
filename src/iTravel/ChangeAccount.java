@@ -14,11 +14,10 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class ChangeProfiles {
+public class ChangeAccount {
+    private AccountAdapter accountAdapter;
     @FXML
     private ComboBox<String> comboBox;
     @FXML
@@ -28,60 +27,56 @@ public class ChangeProfiles {
     private ProfileAdapter profileAdapter;
     private ObservableList<String> comboBoxData = FXCollections.observableArrayList();
 
-    public void setProfileAdapter(ProfileAdapter profileAdapter) {
-        this.profileAdapter = profileAdapter;
+    public void setAccountAdapter(AccountAdapter accountAdapter) {
+        this.accountAdapter = accountAdapter;
         try {
-            ObservableList<Profile> profilesList = profileAdapter.getProfilesList();
-            profilesList.forEach((profile) -> {
-                comboBoxData.add(profile.getFirstName() + " " + profile.getLastName());
+            ObservableList<Account> accountsList = accountAdapter.getAccountList();
+            accountsList.forEach((account) -> {
+                comboBoxData.add(account.getFirstName() + " " + account.getLastName());
             });
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         comboBox.setItems(comboBoxData);
-        }
+    }
     @FXML
     public void onOkay() {
         // Instantiate an RemoveFlightController object, use setter for profileAdapter
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("AddProfile.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("CreateNewAccount.fxml"));
         int comboBoxSelectedIndex = comboBox.getSelectionModel().getSelectedIndex();
-        Parent addProfile;
+        Parent addAccount;
         try {
             // Set up addProfileController and display it onscreen
-            addProfile = (Parent) fxmlLoader.load();
-            AddProfileController addProfileController = (AddProfileController) fxmlLoader.getController();
-            addProfileController.setProfileAdapter(profileAdapter);
-            Scene scene = new Scene(addProfile);
+            addAccount = (Parent) fxmlLoader.load();
+            CreateNewAccount createNewAccount = (CreateNewAccount) fxmlLoader.getController();
+            createNewAccount.setAccountAdapter(accountAdapter);
+            Scene scene = new Scene(addAccount);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.getIcons().add(new Image("file:src/TennisBallGames/WesternLogo.png"));
-            stage.setTitle("Change Profiles");
+            stage.setTitle("Change Account");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
 
             // Set textfields
-            Profile profile = profileAdapter.getProfilesList().get(comboBoxSelectedIndex);
-            addProfileController.setFirstName(profile.getFirstName());
-            addProfileController.setLastName(profile.getLastName());
-            addProfileController.setAddress(profile.getAddress());
+            Account account = accountAdapter.getAccountList().get(comboBoxSelectedIndex);
+            createNewAccount.setFirstName(account.getFirstName());
+            createNewAccount.setLastName(account.getLastName());
+            createNewAccount.setPhoneNumber(account.getPhoneNumber());
 
-            // Fire radio button at profile.getPosition()
-            RadioButton businessManager = addProfileController.getBusinessManager();
-            RadioButton lineOfBusinessExecutive = addProfileController.getLineOfBusinessExecutive();
-            RadioButton networkAdministrator = addProfileController.getNetworkAdministrator();
-            RadioButton radioButtons[] = {businessManager, lineOfBusinessExecutive, networkAdministrator};
-            radioButtons[profile.getPosition()].fire();
+            //
+            createNewAccount.setLabel(String.valueOf(account.getUserID()));
 
             // Remove previous profile
-            profileAdapter.removeProfile(profile);
+            accountAdapter.removeAccount(account);
 
             // Disable form
             comboBox.setDisable(true);
             okay.setDisable(true);
             label.setText("Please exit this form");
         } catch (Exception ex) {
-            addProfile = null;
+            addAccount = null;
             System.out.println(ex.getMessage());
         }
     }

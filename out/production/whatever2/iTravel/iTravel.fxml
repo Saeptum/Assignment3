@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="727.0" prefWidth="1030.0" style="-fx-background-image: url(&quot;file:src/iTravel/WesternBackground.png&quot;);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iTravel.MainController">
@@ -33,9 +30,9 @@
                     </items></Menu>
                 <Menu mnemonicParsing="false" text="Manage Users Accounts">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Create New Account" />
-                  <MenuItem mnemonicParsing="false" text="Change Accounts" />
-                  <MenuItem mnemonicParsing="false" text="Delete Accounts" />
+                  <MenuItem mnemonicParsing="false" onAction="#AddAccountListener" text="Create New Account" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeAccountListener" text="Change Accounts" />
+                  <MenuItem mnemonicParsing="false" onAction="#RemoveAccountListener" text="Delete Accounts" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="Manage Servers">
               <items>
